@@ -1,37 +1,23 @@
 from abc import abstractmethod, ABCMeta
 
 
-class Identifier(metaclass=ABCMeta):
-    """
-
-    Warning:
-        This identifier should not be used but one of the below
-
-    Explicit is better than implicit
-    """
-
-    @abstractmethod
-    def __eq__(self, other):
-        raise NotImplementedError("implement in base clases")
-
-
-class LatticePositionIdentifer(metaclass=ABCMeta):
+class LatticePositionIdentifier(metaclass=ABCMeta):
     """Identifier for a certain position in e.g. a lattice"""
 
     @abstractmethod
     def __eq__(self, other):
-        raise NotImplementedError("implement in base clases")
+        raise NotImplementedError("implement in base class")
 
 
-class LatticeElementIdentifer(metaclass=ABCMeta):
+class LatticeElementIdentifier(metaclass=ABCMeta):
     """ """
 
     @abstractmethod
     def __eq__(self, other):
-        raise NotImplementedError("implement in base clases")
+        raise NotImplementedError("implement in base class")
 
 
-class DeviceIdentifer(metaclass=ABCMeta):
+class DeviceIdentifier(metaclass=ABCMeta):
     @abstractmethod
     def __eq__(self, other):
-        raise NotImplementedError("implement in base clases")
+        raise NotImplementedError("implement in base class")
