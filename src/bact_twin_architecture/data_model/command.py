@@ -11,11 +11,6 @@ class BehaviourOnError(IntEnum):
 
 @dataclass
 class Command:
-    """
-    Todo:
-        consider if the id should just be a string
-        use documentation to make clear what it is
-    """
     #: can be the identifier of a lattice element or a device
     id: str
     property: str
