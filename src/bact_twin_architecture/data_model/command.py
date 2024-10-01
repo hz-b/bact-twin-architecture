@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from enum import IntEnum
 from typing import Sequence, Union
 
-from ..interfaces.identifier import LatticeElementIdentifier, DeviceIdentifier
+# from ..interfaces.identifier import LatticeElementIdentifier, DeviceIdentifier
 
 
 class BehaviourOnError(IntEnum):
@@ -13,7 +13,13 @@ class BehaviourOnError(IntEnum):
 
 @dataclass
 class Command:
-    id: Union[LatticeElementIdentifier,DeviceIdentifier]
+    """
+    Todo:
+        consider if the id should just be a string
+        use documentation to make clear what it is
+    """
+    #: can be the identifer of a lattice element or a device
+    id: str
     property: str
     value: object
     behaviour_on_error: BehaviourOnError

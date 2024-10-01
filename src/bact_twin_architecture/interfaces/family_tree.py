@@ -3,7 +3,7 @@
 from abc import abstractmethod, ABCMeta
 from typing import Sequence
 
-from .identifier import LatticeElementIdentifier
+# from .identifier import LatticeElementIdentifier
 
 
 class FamilyTree(metaclass=ABCMeta):
@@ -21,6 +21,6 @@ class FamilyTree(metaclass=ABCMeta):
     belong to different families
     """
     @abstractmethod
-    def get(self, family_name: str) -> Sequence[LatticeElementIdentifier]:
+    def get(self, family_name: str) -> Sequence[str]:
         """Return a sequence with all identifiers beloning to base class"""
         raise NotImplementedError("use derived class instead")

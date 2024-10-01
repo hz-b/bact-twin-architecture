@@ -1,7 +1,7 @@
 from abc import abstractmethod, ABCMeta
 
 
-class LatticePositionIdentifier(metaclass=ABCMeta):
+class LatticePositionIdentifierObsolete(metaclass=ABCMeta):
     """Identifier for a certain position in e.g. a lattice"""
 
     @abstractmethod
@@ -9,7 +9,7 @@ class LatticePositionIdentifier(metaclass=ABCMeta):
         raise NotImplementedError("implement in base class")
 
 
-class LatticeElementIdentifier(metaclass=ABCMeta):
+class LatticeElementIdentifierObsolete(metaclass=ABCMeta):
     """ """
 
     @abstractmethod
@@ -17,7 +17,7 @@ class LatticeElementIdentifier(metaclass=ABCMeta):
         raise NotImplementedError("implement in base class")
 
 
-class DeviceIdentifier(metaclass=ABCMeta):
+class DeviceIdentifierObsolete(metaclass=ABCMeta):
     @abstractmethod
     def __eq__(self, other):
         raise NotImplementedError("implement in base class")
