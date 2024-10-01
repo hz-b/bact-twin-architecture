@@ -7,10 +7,7 @@ from .identifier import Identifier
 
 
 class FamilyTree(metaclass=ABCMeta):
-    """
-    Waring:
-        need to change the name. Yellow Pages
-        is a trademark...
+    """Handling devices and their family belonging
     """
     @abstractmethod
     def get(self, family_name: str) -> Sequence[Identifier]:

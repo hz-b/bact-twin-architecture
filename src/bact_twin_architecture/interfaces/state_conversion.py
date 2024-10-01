@@ -1,14 +1,18 @@
 from abc import abstractmethod,ABCMeta
 
 
-class StateConversion(ABCMeta):
+class StateConversion(metaclass=ABCMeta):
     """convert one state to an other
 
     Other wide spread names:
     * unit conversion
     * coordinate system transformation
 
-    Please note initalisatin
+    Please note initalisation is not handled here
+
+    Todo:
+       Shall one add the comand conversion here too?
+       It seems to violate the single objective principle.
     """
     @abstractmethod
     def forward(self, state: object) -> object:
@@ -16,7 +20,7 @@ class StateConversion(ABCMeta):
 
         Follows bluesky convention
         """
-        raise NotImplementedError("use base claass instead")
+        raise NotImplementedError("use derived class instead")
 
     @abstractmethod
     def inverse(self, state: object) -> object:
@@ -24,4 +28,4 @@ class StateConversion(ABCMeta):
 
         Follows bluesky convention
         """
-        raise NotImplementedError("use base claass instead")
+        raise NotImplementedError("use derived class instead")
