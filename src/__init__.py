@@ -19,4 +19,4 @@ Todo:
 
 """
 
-__all__ = ["interfaces", "data_model"]
+__all__ = ["interfaces", "data_model", "utils"]

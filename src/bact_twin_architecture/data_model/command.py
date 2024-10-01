@@ -1,8 +1,6 @@
 from dataclasses import dataclass
 from enum import IntEnum
-from typing import Sequence
-
-from ..interfaces.identifier import Identifier
+from typing import Sequence, Union
 
 
 class BehaviourOnError(IntEnum):
@@ -13,7 +11,8 @@ class BehaviourOnError(IntEnum):
 
 @dataclass
 class Command:
-    id: Identifier
+    #: can be the identifier of a lattice element or a device
+    id: str
     property: str
     value: object
     behaviour_on_error: BehaviourOnError

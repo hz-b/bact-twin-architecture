@@ -3,13 +3,13 @@
 Todo:
     Review identifiers! Are the following identifiers the same
 
-    * place location identifer
-    * lattice element identifer
-    * device identifer
+    * place location identifier
+    * lattice element identifier
+    * device identifier
     * module identifier: e.g. nested magnets
-    * assembly identifer: e.g. magnets on a grider
+    * assembly identifier: e.g. magnets on a girder
 
-    If identifers are unique any inconsistent use would be traced
+    If identifiers are unique any inconsistent use would be traced
 
 """
 from dataclasses import dataclass
