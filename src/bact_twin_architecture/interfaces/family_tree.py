@@ -3,8 +3,6 @@
 from abc import abstractmethod, ABCMeta
 from typing import Sequence
 
-# from .identifier import LatticeElementIdentifier
-
 
 class FamilyTree(metaclass=ABCMeta):
     """Handling lattice element and their family belonging
