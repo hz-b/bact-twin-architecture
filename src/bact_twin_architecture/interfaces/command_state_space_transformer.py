@@ -8,7 +8,10 @@ from abc import ABCMeta, abstractmethod
 from ..data_model.command import Command
 
 
-class StateSpaceTransformer(metaclass=ABCMeta):
+class CommandStateSpaceTransformer(metaclass=ABCMeta):
+    """alternative:
+            TranslationService
+    """
     @abstractmethod
     def forward(self, command: Command):
         raise NotImplementedError("use derived class instead")

@@ -3,7 +3,7 @@ from typing import Tuple
 from ..data_model.identifiers import LatticeElementPropertyID, DevicePropertyID
 
 
-class IdentifierPropertyTransformerBase(metaclass=ABCMeta):
+class LiaisonManagerBase(metaclass=ABCMeta):
     """transforms pairs of (id, property)
     """
     @abstractmethod
@@ -11,5 +11,5 @@ class IdentifierPropertyTransformerBase(metaclass=ABCMeta):
         raise NotImplementedError("use derived class instead")
 
     @abstractmethod
-    def inverse(self, id_: DevicePropertyID) -> Tuple[LatticeElementPropertyID, str]:
+    def inverse(self, id_: DevicePropertyID) -> LatticeElementPropertyID:
         raise NotImplementedError("use derived class instead")
