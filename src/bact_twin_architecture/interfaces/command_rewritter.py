@@ -8,7 +8,7 @@ from abc import ABCMeta, abstractmethod
 from ..data_model.command import Command
 
 
-class CommandStateSpaceTransformer(metaclass=ABCMeta):
+class CommandRewriterBase(metaclass=ABCMeta):
     """alternative:
             TranslationService
     """

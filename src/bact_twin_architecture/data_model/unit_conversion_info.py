@@ -1,4 +1,9 @@
-from typing import Union
+"""
+
+Todo:
+    should be moved to an implementation part
+"""
+
 from dataclasses import dataclass
 from .identifiers import ConversionID
 
