@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from ..dm import user_data_model
+from ..data_model import user_data_model
 
 
 class SomeRepo(metaclass=ABCMeta):

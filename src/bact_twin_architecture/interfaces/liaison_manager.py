@@ -1,5 +1,4 @@
 from abc import ABCMeta, abstractmethod
-from typing import Tuple
 from ..data_model.identifiers import LatticeElementPropertyID, DevicePropertyID
 
 

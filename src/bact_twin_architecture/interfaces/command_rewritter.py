@@ -17,5 +17,5 @@ class CommandRewriterBase(metaclass=ABCMeta):
         raise NotImplementedError("use derived class instead")
 
     @abstractmethod
-    def backward(self, command: Command):
+    def inverse(self, command: Command):
         raise NotImplementedError("use derived class instead")
