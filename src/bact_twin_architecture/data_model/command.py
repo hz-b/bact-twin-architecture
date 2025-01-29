@@ -11,6 +11,10 @@ class BehaviourOnError(IntEnum):
 
 @dataclass
 class Command:
+    """
+    Todo:
+        how to handle the devices that should be read back?
+    """
     #: can be the identifier of a lattice element or a device
     id: str
     property: str

@@ -8,17 +8,18 @@ class FamilyTree(metaclass=ABCMeta):
     """Handling lattice element and their family belonging
 
     Todo:
-        Shall one distinquish that ?
+        Shall one distinguish that ?
 
     Two ways to see it:
     * family as seen by a lattice:
         typically some magnets that are split all over the place
 
     Imagine for some lattice e.g. some quadrupoles could be
-    indentically as they are produced. But they could still
+    identically as they are produced. But they could still
     belong to different families
     """
+
     @abstractmethod
     def get(self, family_name: str) -> Sequence[str]:
-        """Return a sequence with all identifiers beloning to base class"""
+        """Return a sequence with all identifiers belonging to base class"""
         raise NotImplementedError("use derived class instead")
