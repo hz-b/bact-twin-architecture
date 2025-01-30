@@ -10,6 +10,10 @@ class LiaisonManagerBase(metaclass=ABCMeta):
     Warning:
         it returns a sequence of device / properties
         More than one device can be necessary to be updated
+
+    Todo:
+        review if it violates single responsibility principle?
+        Should fanout and Liaison be managed separately?
     """
     @abstractmethod
     def forward(self, id_: LatticeElementPropertyID) -> Sequence[DevicePropertyID]:
