@@ -21,3 +21,14 @@ class LinearUnitConversionInfo(LookupElement):
 
     def id(self) -> Hashable:
         return self.conversion_id
+
+
+@dataclass(frozen=True)
+class EnergyIndependentLinearUnitConversionInfo(LookupElement):
+    """The name says it"""
+    conversion_id : ConversionID
+    intercept: float
+    slope: float
+
+    def id(self) -> Hashable:
+        return self.conversion_id
