@@ -8,10 +8,10 @@ class StateConversion(metaclass=ABCMeta):
     * unit conversion
     * coordinate system transformation
 
-    Please note initalisation is not handled here
+    Please note initialisation is not handled here
 
     Todo:
-       Shall one add the comand conversion here too?
+       Shall one add the command conversion here too?
        It seems to violate the single objective principle.
     """
     @abstractmethod
