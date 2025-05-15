@@ -1,10 +1,8 @@
 from abc import ABCMeta, abstractmethod
-from typing import Union
 
 from bact_twin_architecture.data_model.identifiers import ConversionID
 
 from .state_conversion import StateConversion
-from ..data_model.identifiers import LatticeElementPropertyID, DevicePropertyID
 
 
 class TranslatorServiceBase(metaclass=ABCMeta):
