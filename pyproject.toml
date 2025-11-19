@@ -12,3 +12,9 @@ homepage = "https://github.com/hz-b/bact-twin-architecture"
 documentation = "https://github.com/hz-b/bact-twin-architecture"
 repository = "https://github.com/hz-b/bact-twin-architecture"
 keywords = []
+
+[tool.poetry.dependencies]
+python = ">=3.7"
+# todo: checki f numpz provides sufficient functionaliz
+scipy="*"
+numpy="*"
