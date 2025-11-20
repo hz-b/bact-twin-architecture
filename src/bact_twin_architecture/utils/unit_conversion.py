@@ -55,6 +55,7 @@ class EnergyIndependentLinearUnitConversion(StateConversion):
         return (state - intercept) / slope
 
 
+
 class EnergyIndependentCurveUnitConversion(UnitConversion):
     """
     Interpolate a curve (independent -> dependent) using scipy.interpolate.interp1d
@@ -69,21 +70,17 @@ class EnergyIndependentCurveUnitConversion(UnitConversion):
     def __init__(self, *, fwd_points: Sequence[CurvePoint], bwd_points: Sequence[CurvePoint], brho: float):
         # forward interpolator: will raise if x out of bounds
         # TODO: clean up it is a mess at the moment
-        __fwd = list(fwd_points).copy()
-        __fwd.sort(key=lambda t: t["indep"])
         self._fwd = interp1d(
-            [t["indep"] for t in __fwd],
-            [t["dep"] for t in __fwd],
             kind="linear", bounds_error=True, assume_sorted=True)
-        __bwd = list(bwd_points).copy()
-        __bwd.sort(key=lambda t: t["indep"])
+        bwd = list(bwd_points).copy()
+        bwd.sort(key=lambda t: t["indep"])
         self._bwd = interp1d(
-            [t["indep"] for t in __bwd],
-            [t["dep"] for t in __bwd],
+            [t["indep"] for t in bwd],
+            [t["dep"] for t in bwd],
             kind="linear", bounds_error=True, assume_sorted=True)
         self.brho = float(brho)
-        self.fwd_points = __fwd
-        self.bwd_points = __bwd
+        self.fwd_points = fwd
+        self.bwd_points = bwd
 
     def forward(self, state: float) -> float:
         logger.info("%s.forward: brho %s state %s", self.__class__.__name__, self.brho, state)
