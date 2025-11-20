@@ -26,6 +26,10 @@ class CommandRewriter(CommandRewriterBase):
         seems to have more than one responsibility
 
         Move it to bact_twin_architecture.utils?
+
+        Needs to be revisited to work with combined function magnets
+        Here when the inverse is called it returns a dictionary of values
+        each of them needs to be combined to a new command
     """
 
     def __init__(self, liasion_manager: LiaisonManagerBase, translation_service: TranslatorServiceBase):

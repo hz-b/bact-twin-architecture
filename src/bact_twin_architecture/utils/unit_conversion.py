@@ -71,16 +71,16 @@ class EnergyIndependentCurveUnitConversion(UnitConversion):
         # forward interpolator: will raise if x out of bounds
         # TODO: clean up it is a mess at the moment
         self._fwd = interp1d(
-            kind="linear", bounds_error=True, assume_sorted=True)
-        bwd = list(bwd_points).copy()
-        bwd.sort(key=lambda t: t["indep"])
+            [t["indep"] for t in fwd_points],
+            [t["dep"] for t in fwd_points],
+            kind="linear", bounds_error=True)
         self._bwd = interp1d(
-            [t["indep"] for t in bwd],
-            [t["dep"] for t in bwd],
-            kind="linear", bounds_error=True, assume_sorted=True)
+            [t["indep"] for t in bwd_points],
+            [t["dep"] for t in bwd_points],
+            kind="linear", bounds_error=True)
         self.brho = float(brho)
-        self.fwd_points = fwd
-        self.bwd_points = bwd
+        self.fwd_points = fwd_points
+        self.bwd_points = bwd_points
 
     def forward(self, state: float) -> float:
         logger.info("%s.forward: brho %s state %s", self.__class__.__name__, self.brho, state)
