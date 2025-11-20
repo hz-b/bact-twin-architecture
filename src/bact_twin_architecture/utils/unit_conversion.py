@@ -68,24 +68,31 @@ class EnergyIndependentCurveUnitConversion(UnitConversion):
 
     def __init__(self, *, fwd_points: Sequence[CurvePoint], bwd_points: Sequence[CurvePoint], brho: float):
         # forward interpolator: will raise if x out of bounds
+        # TODO: clean up it is a mess at the moment
+        __fwd = list(fwd_points).copy()
+        __fwd.sort(key=lambda t: t["indep"])
         self._fwd = interp1d(
-            [t["indep"] for t in fwd_points],
-            [t["dep"] for t in fwd_points],
+            [t["indep"] for t in __fwd],
+            [t["dep"] for t in __fwd],
             kind="linear", bounds_error=True, assume_sorted=True)
+        __bwd = list(bwd_points).copy()
+        __bwd.sort(key=lambda t: t["indep"])
         self._bwd = interp1d(
-            [t["indep"] for t in bwd_points],
-            [t["dep"] for t in bwd_points],
+            [t["indep"] for t in __bwd],
+            [t["dep"] for t in __bwd],
             kind="linear", bounds_error=True, assume_sorted=True)
         self.brho = float(brho)
+        self.fwd_points = __fwd
+        self.bwd_points = __bwd
 
     def forward(self, state: float) -> float:
-        logger.info("%s.forward: brho %s points %d state %s", self.__class__.__name__, self.brho, len(self._indep), state)
+        logger.info("%s.forward: brho %s state %s", self.__class__.__name__, self.brho, state)
         x = float(state)
         y = float(self._fwd(x))  # interp1d returns an array-like
         return y * self.brho
 
     def inverse(self, state: float) -> float:
-        logger.info("%s.inverse: brho %s points %d state %s", self.__class__.__name__, self.brho, len(self._indep), state)
+        # logger.info("%s.inverse: brho %s points %d state %s", self.__class__.__name__, self.brho, len(self._indep), state)
         if self.brho == 0:
             raise ValueError("brho must be non-zero for inversion")
         target = float(state) / self.brho
