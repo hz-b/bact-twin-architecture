@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from typing import Sequence
+from typing import Sequence, Union
 
 from ..data_model.identifiers import LatticeElementPropertyID, DevicePropertyID
 
@@ -16,9 +16,19 @@ class LiaisonManagerBase(metaclass=ABCMeta):
         Should fanout and Liaison be managed separately?
     """
     @abstractmethod
-    def forward(self, id_: LatticeElementPropertyID) -> Sequence[DevicePropertyID]:
+    def forward(self, id_: LatticeElementPropertyID) -> Union[Sequence[DevicePropertyID], None]:
         raise NotImplementedError("use derived class instead")
 
     @abstractmethod
-    def inverse(self, id_: DevicePropertyID) -> Sequence[LatticeElementPropertyID]:
+    def inverse(self, id_: DevicePropertyID) -> Union[Sequence[LatticeElementPropertyID], None]:
         raise NotImplementedError("use derived class instead")
+
+    @abstractmethod
+    def get_name(self) -> str:
+        """
+
+        Useful for augmenting debug info as liasion managers can be
+        bundled in a facade
+        """
+        raise NotImplementedError("use derived class instead")
+
