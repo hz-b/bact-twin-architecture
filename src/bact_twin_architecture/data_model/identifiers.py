@@ -23,3 +23,15 @@ class DevicePropertyID:
 class ConversionID:
     lattice_property_id: LatticeElementPropertyID
     device_property_id: DevicePropertyID
+
+
+@dataclass
+class ElementDevicePair:
+    element_name: str
+    device_name: str
+
+
+@dataclass
+class ElementDevicePropertyPair:
+    element_property: str
+    device_property: str
