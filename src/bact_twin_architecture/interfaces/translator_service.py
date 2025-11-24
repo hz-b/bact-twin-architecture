@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+from typing import Union
 
 from bact_twin_architecture.data_model.identifiers import ConversionID
 
@@ -17,5 +18,9 @@ class TranslatorServiceBase(metaclass=ABCMeta):
     * please give me the translation object that converts between these
     """
     @abstractmethod
-    def get(self, id_: ConversionID) -> StateConversion:
+    def get(self, id_: ConversionID) -> Union[StateConversion, None]:
+        pass
+
+    @abstractmethod
+    def get_name(self) -> str:
         pass

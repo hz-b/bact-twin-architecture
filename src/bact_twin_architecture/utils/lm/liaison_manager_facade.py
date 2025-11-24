@@ -7,8 +7,8 @@ Todo:
 import logging
 from typing import Sequence, Mapping, Union
 
-from ..data_model.identifiers import LatticeElementPropertyID, DevicePropertyID
-from ..interfaces.liaison_manager import LiaisonManagerBase
+from ...data_model.identifiers import LatticeElementPropertyID, DevicePropertyID
+from ...interfaces.liaison_manager import LiaisonManagerBase
 
 logger = logging.getLogger("bact-twin-architecture")
 
@@ -30,7 +30,9 @@ class LiaisonManagerFacade(LiaisonManagerBase):
     def get_name(self):
         return self.name
 
-    def forward(self, id_: LatticeElementPropertyID) -> Union[Sequence[DevicePropertyID], None]:
+    def forward(
+        self, id_: LatticeElementPropertyID
+    ) -> Union[Sequence[DevicePropertyID], None]:
         """
 
         Todo:
@@ -53,9 +55,9 @@ class LiaisonManagerFacade(LiaisonManagerBase):
             r = delegate.forward(id_)
             if r is not None:
                 logger.info(
-                    f"%s:%s(name=%s) fwd mapping %s -> %s",
-                    __file__,
-                    self.__class__.__class__,
+                    "%s.%s(name=%s) fwd mapping %s -> %s",
+                    __name__,
+                    self.__class__.__name__,
                     self.name,
                     id_,
                     r,
@@ -63,23 +65,25 @@ class LiaisonManagerFacade(LiaisonManagerBase):
                 return r
         else:
             logger.warning(
-                f"%s:%s(name=%s) no mapping found for %s in any liaison manager ",
-                __file__,
-                self.__class__.__class__,
+                "%s.%s(name=%s) no mapping found for %s in one of the liaison managers %s",
+                __name__,
+                self.__class__.__name__,
                 self.name,
                 id_,
                 [lm.get_name() for lm in self.delegates],
             )
             return None
 
-    def inverse(self, id_: DevicePropertyID) -> Union[Sequence[LatticeElementPropertyID], None]:
+    def inverse(
+        self, id_: DevicePropertyID
+    ) -> Union[Sequence[LatticeElementPropertyID], None]:
         for delegate in self.delegates:
             r = delegate.inverse(id_)
             if r is not None:
                 logger.info(
-                    f"%s:%s(name=%s) fwd mapping %s -> %s",
-                    __file__,
-                    self.__class__.__class__,
+                    "%s.%s(name=%s) fwd mapping %s -> %s",
+                    __name__,
+                    self.__class__.__name__,
                     self.name,
                     id_,
                     r,
@@ -87,13 +91,11 @@ class LiaisonManagerFacade(LiaisonManagerBase):
                 return r
         else:
             logger.warning(
-                f"%s:%s(name=%s) no mapping found for %s in any liaison manager ",
-                __file__,
-                self.__class__.__class__,
+                f"%s.%s(name=%s) no mapping found for %s in any liaison manager %s",
+                __name__,
+                self.__class__.__name__,
                 self.name,
                 id_,
                 [lm.get_name() for lm in self.delegates],
             )
             return None
-
-

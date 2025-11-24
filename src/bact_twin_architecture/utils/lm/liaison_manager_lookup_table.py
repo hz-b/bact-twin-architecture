@@ -1,13 +1,13 @@
 import logging
 from typing import Mapping, Sequence, Union
 
-from ..data_model.identifiers import LatticeElementPropertyID, DevicePropertyID
-from ..interfaces.liaison_manager import LiaisonManagerBase
+from ...data_model.identifiers import LatticeElementPropertyID, DevicePropertyID
+from ...interfaces.liaison_manager import LiaisonManagerBase
 
 logger = logging.getLogger("bact-twin-architecture")
 
 
-class LiaisonManagerOnlyLookup(LiaisonManagerBase):
+class LiaisonManagerLookupTable(LiaisonManagerBase):
     """The classic liaison manager look request uo in a repository or dictonary"""
 
     def __init__(
@@ -34,17 +34,17 @@ class LiaisonManagerOnlyLookup(LiaisonManagerBase):
         r = self.forward_lut.get(id_, None)
         if r is None:
             logger.debug(
-                "%s:%s(name=%s) id %s not found in lookup table:",
-                __file__,
-                self.__class__.__class__,
+                "%s.%s(name=%s) id %s not found in lookup table:",
+                __name__,
+                self.__class__.__name__,
                 self.name,
                 id_,
             )
         else:
             logger.debug(
-                f"%s:%s(name=%s) fwd mapping %s -> %s",
-                __file__,
-                self.__class__.__class__,
+                "%s.%s(name=%s) fwd mapping %s -> %s",
+                __name__,
+                self.__class__.__name__,
                 self.name,
                 id_,
                 r,
@@ -57,17 +57,17 @@ class LiaisonManagerOnlyLookup(LiaisonManagerBase):
         r = self.inverse_lut.get(id_, None)
         if r is None:
             logger.info(
-                "%s:%s(name=%s) id %s not found in lookup table:",
-                __file__,
-                self.__class__.__class__,
+                "%s.%s(name=%s) id %s not found in lookup table:",
+                __name__,
+                self.__class__.__name__,
                 self.name,
                 id_,
             )
         else:
             logger.debug(
-                f"%s:%s(name=%s) fwd mapping %s -> %s",
-                __file__,
-                self.__class__.__class__,
+                "f%s.%s(name=%s) fwd mapping %s -> %s",
+                __name__,
+                self.__class__.__name__,
                 self.name,
                 id_,
                 r,

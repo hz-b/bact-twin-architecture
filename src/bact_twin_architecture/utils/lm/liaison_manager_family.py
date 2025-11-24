@@ -1,15 +1,9 @@
 import logging
 from typing import Sequence, Union
 
-from bact_twin_architecture.data_model.identifiers import (
-    LatticeElementPropertyID,
-    DevicePropertyID,
-)
-from bact_twin_architecture.interfaces.liaison_manager import LiaisonManagerBase
-from bact_twin_architecture.utils.model import (
-    LatticeElementsPropertiesCollection,
-    DevicePropertiesLUTCollection,
-)
+from .model import LatticeElementsPropertiesCollection, DevicePropertiesLUTCollection
+from ...data_model.identifiers import LatticeElementPropertyID, DevicePropertyID
+from ...interfaces.liaison_manager import LiaisonManagerBase
 
 logger = logging.getLogger("bact-twin-architecture")
 
@@ -34,9 +28,9 @@ class LiaisonManagerForFamily(LiaisonManagerBase):
         elem_lut = self.forward_lut.get(id_.element_name)
         if elem_lut is None:
             logger.debug(
-                "%s:%s(name=%s) family lut %s: element %s not found",
-                __file__,
-                self.__class__.__class__,
+                "%s.%s(name=%s) family lut %s: element %s not found",
+                __name__,
+                self.__class__.__name__,
                 self.name,
                 self.forward_lut.name,
                 id_.element_name,
@@ -46,9 +40,9 @@ class LiaisonManagerForFamily(LiaisonManagerBase):
         r = elem_lut.lut.get(id_.property, None)
         if r is None:
             logger.debug(
-                "%s:%s(name=%s) family lut %s element %s: %s not found",
-                __file__,
-                self.__class__.__class__,
+                "%s.%s(name=%s) family lut %s element %s: %s not found",
+                __name__,
+                self.__class__.__name__,
                 self.name,
                 self.forward_lut.name,
                 id_.element_name,
@@ -63,9 +57,9 @@ class LiaisonManagerForFamily(LiaisonManagerBase):
         elem_lut = self.inverse_lut.get(id_.device_name)
         if elem_lut is None:
             logger.debug(
-                "%s:%s(name=%s) family lut %s: device %s not found",
-                __file__,
-                self.__class__.__class__,
+                "%s.%s(name=%s) family lut %s: device %s not found",
+                __name__,
+                self.__class__.__name__,
                 self.name,
                 self.inverse_lut.name,
                 id_.device_name,
@@ -75,9 +69,9 @@ class LiaisonManagerForFamily(LiaisonManagerBase):
         r = elem_lut.lut.get(id_.property, None)
         if r is None:
             logger.debug(
-                "%s:%s(name=%s) family lut %s device %s: property %s not found",
-                __file__,
-                self.__class__.__class__,
+                "%s.%s(name=%s) family lut %s device %s: property %s not found",
+                __name__,
+                self.__class__.__name__,
                 self.name,
                 self.inverse_lut.name,
                 id_.device_name,

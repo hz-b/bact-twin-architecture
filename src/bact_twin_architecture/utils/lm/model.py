@@ -6,7 +6,12 @@ from dataclasses import dataclass
 from functools import cached_property
 from typing import Mapping, Sequence, Union
 
-from ..data_model.identifiers import DevicePropertyID, LatticeElementPropertyID
+from ...data_model.identifiers import (
+    DevicePropertyID,
+    ElementDevicePair,
+    ElementDevicePropertyPair,
+    LatticeElementPropertyID,
+)
 
 
 @dataclass
@@ -50,27 +55,15 @@ class DevicePropertiesLUTCollection:
 
 
 @dataclass
-class LatticeDevicePair:
-    element_name: str
-    device_name: str
-
-
-@dataclass
-class LatticeDevicePropertyPair:
-    element_property: str
-    device_property: str
-
-
-@dataclass
-class LatticeDevicePropertyPairsCollection:
+class ElementDevicePropertyPairsCollection:
     """one property matches to the other
 
     Its the same for any occurance?
     """
-    name: str
-    elem_dev_pairs: Sequence[LatticeDevicePair]
-    property_pairs: Sequence[LatticeDevicePropertyPair]
 
+    name: str
+    elem_dev_pairs: Sequence[ElementDevicePair]
+    property_pairs: Sequence[ElementDevicePropertyPair]
 
     def get_element(self, name):
         return self._elem_dic.get(name, None)
