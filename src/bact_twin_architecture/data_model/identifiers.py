@@ -5,7 +5,6 @@ from dataclasses import dataclass
 class LatticeElementPropertyID:
     element_name: str
     property: str
-    uuid:str
 
     def known(self) -> bool:
         return self.property is not None and self.element_name is not None
