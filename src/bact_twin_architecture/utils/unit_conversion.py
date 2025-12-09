@@ -1,9 +1,8 @@
 from ..data_model.conversion_info import CurvePoint
 from ..interfaces.state_conversion import StateConversion
 import logging
-from typing import Sequence, Tuple
+from typing import Sequence
 from scipy.interpolate import interp1d
-import numpy as np
 
 
 logger = logging.getLogger("bact-twin-architecture")
@@ -37,23 +36,37 @@ class EnergyIndependentLinearUnitConversion(StateConversion):
     Todo:
         Handle separately if brho changes
     """
+
     def __init__(self, *, intercept: float, slope: float, brho: float):
         self.intercept = intercept
         self.slope = slope
         self.brho = brho
 
     def forward(self, state: float) -> float:
-        logger.info("%s.forward: brho %s, intercept %s slope %s, state %s", self.__class__.__name__, self.brho, self.intercept, self.slope, state)
+        logger.info(
+            "%s.forward: brho %s, intercept %s slope %s, state %s",
+            self.__class__.__name__,
+            self.brho,
+            self.intercept,
+            self.slope,
+            state,
+        )
         intercept = self.intercept * self.brho
         slope = self.slope * self.brho
         return intercept + slope * state
 
     def inverse(self, state: float) -> float:
-        logger.info("%s.inverse: brho %s, intercept %s slope %s, state %s", self.__class__.__name__, self.brho, self.intercept, self.slope, state)
+        logger.info(
+            "%s.inverse: brho %s, intercept %s slope %s, state %s",
+            self.__class__.__name__,
+            self.brho,
+            self.intercept,
+            self.slope,
+            state,
+        )
         intercept = self.intercept * self.brho
         slope = self.slope * self.brho
         return (state - intercept) / slope
-
 
 
 class EnergyIndependentCurveUnitConversion(UnitConversion):
@@ -67,23 +80,35 @@ class EnergyIndependentCurveUnitConversion(UnitConversion):
       works for non-monotonic curves by returning the first matching segment)
     """
 
-    def __init__(self, *, fwd_points: Sequence[CurvePoint], bwd_points: Sequence[CurvePoint], brho: float):
+    def __init__(
+        self,
+        *,
+        fwd_points: Sequence[CurvePoint],
+        bwd_points: Sequence[CurvePoint],
+        brho: float
+    ):
         # forward interpolator: will raise if x out of bounds
         # TODO: clean up it is a mess at the moment
         self._fwd = interp1d(
-            [t["indep"] for t in fwd_points],
-            [t["dep"] for t in fwd_points],
-            kind="linear", bounds_error=True)
+            [t.indep for t in fwd_points],
+            [t.dep for t in fwd_points],
+            kind="linear",
+            bounds_error=True,
+        )
         self._bwd = interp1d(
-            [t["indep"] for t in bwd_points],
-            [t["dep"] for t in bwd_points],
-            kind="linear", bounds_error=True)
+            [t.indep for t in bwd_points],
+            [t.dep for t in bwd_points],
+            kind="linear",
+            bounds_error=True,
+        )
         self.brho = float(brho)
         self.fwd_points = fwd_points
         self.bwd_points = bwd_points
 
     def forward(self, state: float) -> float:
-        logger.info("%s.forward: brho %s state %s", self.__class__.__name__, self.brho, state)
+        logger.info(
+            "%s.forward: brho %s state %s", self.__class__.__name__, self.brho, state
+        )
         x = float(state)
         y = float(self._fwd(x))  # interp1d returns an array-like
         return y * self.brho
@@ -95,4 +120,3 @@ class EnergyIndependentCurveUnitConversion(UnitConversion):
         target = float(state) / self.brho
         y = float(self._bwd(target))  # interp1d returns an array-like
         return y
-
