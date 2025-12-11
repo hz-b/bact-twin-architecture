@@ -20,7 +20,11 @@ class YellowPages(FamilyTree):
         self._d = d
 
     def get(self, family_name: Union[str, FamilyName]) -> Sequence[str]:
-        return self._d[family_name]
+        if isinstance(family_name, FamilyName):
+            key = family_name.value
+        else:
+            key = str(family_name)
+        return self._d[key]
 
     def quadrupole_names(self) -> Sequence[str]:
         return self.get("quadrupoles")
@@ -47,17 +51,33 @@ def soleil_yellow_pages() -> YellowPages:
     from ~/Documents/soleil/accelerator_setup.json.
     """
 
-    # Path to the SOLEIL accelerator setup file
     data_file = Path.home() / "Documents" / "soleil" / "accelerator_setup.json"
-
     elements = json.loads(data_file.read_text())
+
+    def is_horizontal(e: dict) -> bool:
+        name = e["name"]
+        fam = e.get("FamName", "")
+        return "CDLH" in name or fam.endswith("_HCOR")
+
+    def is_vertical(e: dict) -> bool:
+        name = e["name"]
+        fam = e.get("FamName", "")
+        return "CDLV" in name or fam.endswith("_VCOR")
 
     quadrupoles = [e["name"] for e in elements if e["type"] == "Quadrupole"]
     sextupoles = [e["name"] for e in elements if e["type"] == "Sextupole"]
     bends = [e["name"] for e in elements if e["type"] == "Bend"]
     multipoles = [e["name"] for e in elements if e["type"] == "Multipole"]
-    horizontal_steerers = [e["name"] for e in elements if e["type"] == "None"]
-    vertical_steerers = [e["name"] for e in elements if e["type"] == "None"]
+
+    # All steerers are `type == "Steerer"`, split by name/FamName
+    horizontal_steerers = [
+        e["name"] for e in elements
+        if e["type"] == "Steerer" and is_horizontal(e)
+    ]
+    vertical_steerers = [
+        e["name"] for e in elements
+        if e["type"] == "Steerer" and is_vertical(e)
+    ]
 
     d = dict(
         quadrupoles=quadrupoles,

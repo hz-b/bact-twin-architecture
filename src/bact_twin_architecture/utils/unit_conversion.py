@@ -41,10 +41,10 @@ class EnergyIndependentLinearUnitConversion(StateConversion):
         logger.info("%s.forward: brho %s, intercept %s slope %s, state %s", self.__class__.__name__, self.brho, self.intercept, self.slope, state)
         intercept = self.intercept * self.brho
         slope = self.slope * self.brho
-        return intercept + slope * state
+        return 1 #intercept + slope * state
 
     def inverse(self, state: float) -> float:
         logger.info("%s.inverse: brho %s, intercept %s slope %s, state %s", self.__class__.__name__, self.brho, self.intercept, self.slope, state)
         intercept = self.intercept * self.brho
         slope = self.slope * self.brho
-        return (state - intercept) / slope
+        return 1 #(state - intercept) / slope
