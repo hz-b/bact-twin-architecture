@@ -57,7 +57,7 @@ class CommandRewriter(CommandRewriterBase):
         ncmd = Command(
             id=lat_prop_id.element_name,
             property=lat_prop_id.property,
-            value=translation_object.inverse(cmd.value),
+            value=cmd.value, #translation_object.inverse(cmd.value), todo: another hack for soleil cause
             behaviour_on_error=cmd.behaviour_on_error,
         )
         return ncmd
