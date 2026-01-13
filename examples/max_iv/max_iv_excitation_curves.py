@@ -2,37 +2,15 @@ import json
 import jsons
 import pprint
 from collections import defaultdict
-from dataclasses import dataclass
-from typing import Dict, Sequence, Union, Literal, List
+from typing import Dict, Sequence, Union, List
 
 from bact_twin_architecture.data_model.conversion_info import CurvePoint
+from bact_twin_architecture.data_model.custom.maxiv.magnet_excitation_curves import MaxIVR1ExcitationDataImport, \
+    MaxIVR1ExcitationMetaData, MaxIVExcitationData, MaxIVR1ExcitationDataSingleCurve
 from bact_twin_architecture.data_model.harmonic_id import Harmonic
 from bact_twin_architecture.data_model.location import SectorCellBasedLocationName
 
 
-@dataclass
-class MaxIVR1ExcitationMetaData:
-    trl: str
-    loc: SectorCellBasedLocationName
-
-
-@dataclass
-class MaxIVR1ExcitationDataImport:
-    harmonic : Harmonic
-    md: MaxIVR1ExcitationMetaData
-    curve: Sequence[CurvePoint]
-
-
-@dataclass
-class MaxIVR1ExcitationDataSingleCurve:
-    harmonic: Harmonic
-    curve: Sequence[CurvePoint]
-
-
-@dataclass
-class MaxIVExcitationData:
-    md: MaxIVR1ExcitationMetaData
-    curves: Sequence[MaxIVR1ExcitationDataSingleCurve]
 
 
 def create_curve_points(d: Dict[str, Union[str, float]]) -> Sequence[CurvePoint]:
