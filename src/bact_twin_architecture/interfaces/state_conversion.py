@@ -1,4 +1,14 @@
-from abc import abstractmethod,ABCMeta
+"""
+
+Todo:
+    review if the type of the state objects can be further
+    limited:
+
+    e.g. Dict[str, float|int|bool|str]
+
+    for single value str should be then default
+"""
+from abc import abstractmethod, ABCMeta
 
 
 class StateConversion(metaclass=ABCMeta):
@@ -14,6 +24,7 @@ class StateConversion(metaclass=ABCMeta):
        Shall one add the command conversion here too?
        It seems to violate the single objective principle.
     """
+
     @abstractmethod
     def forward(self, state: object) -> object:
         """from "physics" to machine

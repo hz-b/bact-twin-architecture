@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "bact-twin-architecture"
-version = "0.0.2"
+version = "0.1.0"
 description = "BACT twin architecture"
 authors = ["Waheedullah Sulaiman Khail", "Pierre Schnizer"]
 license = "GPL-3.0"
@@ -12,3 +12,9 @@ homepage = "https://github.com/hz-b/bact-twin-architecture"
 documentation = "https://github.com/hz-b/bact-twin-architecture"
 repository = "https://github.com/hz-b/bact-twin-architecture"
 keywords = []
+
+[tool.poetry.dependencies]
+python = ">=3.7"
+# todo: checki f numpz provides sufficient functionaliz
+scipy="*"
+numpy="*"

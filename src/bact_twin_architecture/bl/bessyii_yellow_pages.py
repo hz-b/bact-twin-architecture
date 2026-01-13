@@ -42,6 +42,19 @@ class YellowPages(FamilyTree):
         return self.get("sextupoles")
 
 
+def maxiv_yellow_pages(data: dict) -> YellowPages:
+    d = dict(
+        quadrupoles=[datum.name for datum in data if datum.type == "Quadrupole"],
+        sextupoles=None,
+        horizontal_steerers=[datum.name for datum in data if datum.type == "Steerer" and datum.subtype == "horizontal"],
+        vertical_steerers=[datum.name for datum in data if datum.type == "Steerer" and datum.subtype == "vertical"],
+    )
+
+    return YellowPages(d)
+
+
+    return YellowPages(data)
+
 def bessyii_yellow_pages():
     # standard quadrupoles
     quadrupoles = [
@@ -73,11 +86,3 @@ def bessyii_yellow_pages():
     vertical_steerers = [
         f"V{sextupole}" for sextupole in sextupoles if sextupole[1] in ["2", "3"]
     ]
-    d = dict(
-        quadrupoles=quadrupoles,
-        sextupoles=sextupoles,
-        horizontal_steerers=horizontal_steerers,
-        vertical_steerers=vertical_steerers,
-    )
-
-    return YellowPages(d)
