@@ -51,7 +51,7 @@ def soleil_yellow_pages() -> YellowPages:
     from ~/Documents/soleil/accelerator_setup.json.
     """
 
-    data_file = Path.home() / "Documents" / "dt4acc_maxif_twin_data" / "accelerator_setup.json"
+    data_file = Path.home() / "Documents" / "dt4acc_maxiv_twin_data" / "accelerator_setup.json"
     elements = json.loads(data_file.read_text())
 
     def is_horizontal(e: dict) -> bool:
