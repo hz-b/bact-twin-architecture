@@ -85,7 +85,10 @@ class EnergyIndependentCurveUnitConversion(UnitConversion):
         *,
         fwd_points: Sequence[CurvePoint],
         bwd_points: Sequence[CurvePoint],
-        brho: float
+        brho: float,
+        # todo: see how it was named at max iv
+        #       iimplement it in a filter delegating implementation to this object
+        flip_indep_sign: False
     ):
         # forward interpolator: will raise if x out of bounds
         # TODO: clean up it is a mess at the moment
@@ -104,12 +107,15 @@ class EnergyIndependentCurveUnitConversion(UnitConversion):
         self.brho = float(brho)
         self.fwd_points = fwd_points
         self.bwd_points = bwd_points
+        self.flip_indep_sign = flip_indep_sign
 
     def forward(self, state: float) -> float:
         logger.info(
             "%s.forward: brho %s state %s", self.__class__.__name__, self.brho, state
         )
         x = float(state)
+        if self.flip_indep_sign:
+            x = -x
         y = float(self._fwd(x))  # interp1d returns an array-like
         return y * self.brho
 
@@ -119,4 +125,6 @@ class EnergyIndependentCurveUnitConversion(UnitConversion):
             raise ValueError("brho must be non-zero for inversion")
         target = float(state) / self.brho
         y = float(self._bwd(target))  # interp1d returns an array-like
+        if self.flip_indep_sign:
+            return -y
         return y
