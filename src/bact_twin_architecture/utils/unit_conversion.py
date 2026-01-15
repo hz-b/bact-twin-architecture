@@ -126,11 +126,9 @@ class EnergyIndependentCurveUnitConversion(UnitConversion):
         # logger.info("%s.inverse: brho %s points %d state %s", self.__class__.__name__, self.brho, len(self._indep), state)
         if self.brho == 0:
             raise ValueError("brho must be non-zero for inversion")
-        if self.flip_dep_sign:
-            nstate = -state
-        else:
-            nstate = state
-        target = float(nstate) / self.brho
+        target = float(state) / self.brho
         y = float(self._bwd(target)) # interp1d returns an array-like
         assert np.isfinite(y), "failed to inverse {state=} ({brho=}, {target=})"
-        return y
+        if self.flip_dep_sign:
+            y = y * -1
+        return ( y / 0.4 ) # TODO: hard coded for current sqfi magnets, we need to get magnet lenghts
