@@ -86,3 +86,11 @@ def bessyii_yellow_pages():
     vertical_steerers = [
         f"V{sextupole}" for sextupole in sextupoles if sextupole[1] in ["2", "3"]
     ]
+    d = dict(
+        quadrupoles=quadrupoles,
+        sextupoles=sextupoles,
+        horizontal_steerers=horizontal_steerers,
+        vertical_steerers=vertical_steerers,
+    )
+
+    return YellowPages(d)
