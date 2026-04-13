@@ -1,7 +1,5 @@
-import json
 from enum import Enum
-from pathlib import Path
-from typing import Sequence, Union
+from typing import Sequence, Union, Any
 
 from ..interfaces.family_tree import FamilyTree
 
@@ -45,15 +43,19 @@ class YellowPages(FamilyTree):
         return self.get("vertical_steerers")
 
 
-def soleil_yellow_pages() -> YellowPages:
+def soleil_yellow_pages(
+    elements: list[dict[str, Any]] | None = None,
+) -> YellowPages:
     """
     Creates a YellowPages instance for SOLEIL using the magnet names
     from ~/Documents/soleil/accelerator_setup.json.
     """
 
-    data_file = Path.home() / "Documents" / "dt4acc_soleil_twin_data" / "accelerator_setup.json"
-    elements = json.loads(data_file.read_text())
-
+    if elements is None:
+        raise RuntimeError(
+            "Accelerator setup is not loaded. "
+            "Provide `elements` explicitly or initialize accelerator_config first."
+        )
     def is_horizontal(e: dict) -> bool:
         name = e["name"]
         fam = e.get("FamName", "")
